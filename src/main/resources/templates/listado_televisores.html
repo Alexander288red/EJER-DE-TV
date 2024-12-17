@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Televisores</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Fondo animado con gradiente */
+        body {
+            background: linear-gradient(45deg, #ff007f, #7f00ff, #00ffff, #00ff7f, #ffff00);
+            background-size: 400% 400%;
+            animation: gradientAnimation 8s infinite;
+            color: white;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Contenedor con estilo */
+        .container {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Título animado */
+        h1 {
+            font-family: 'Arial Black', sans-serif;
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #ff007f, 0 0 30px #7f00ff;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { text-shadow: 0 0 10px #ffffff, 0 0 20px #ff007f, 0 0 30px #7f00ff; }
+            50% { text-shadow: 0 0 20px #ffffff, 0 0 30px #ff007f, 0 0 40px #7f00ff; }
+        }
+
+        /* Botones con efecto neón */
+        .btn-primary, .btn-warning, .btn-danger {
+            border: none;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 5px #ff007f, 0 0 10px #7f00ff;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background-color: #7f00ff;
+            box-shadow: 0 0 10px #7f00ff, 0 0 20px #7f00ff, 0 0 30px #7f00ff;
+        }
+
+        .btn-warning:hover {
+            background-color: #ff8800;
+            box-shadow: 0 0 10px #ff8800, 0 0 20px #ff8800, 0 0 30px #ff8800;
+        }
+
+        .btn-danger:hover {
+            background-color: #ff0000;
+            box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+        }
+
+        /* Tabla estilizada */
+        table {
+            color: white;
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        th {
+            color: #ff007f;
+            text-shadow: 0 0 5px #7f00ff;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        /* Animación del contenedor */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Listado de Televisores</h1>
+    <a href="/televisores/nuevo" class="btn btn-primary mb-3">Agregar nuevo televisor</a>
+    <table class="table table-striped text-center">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="televisor : ${televisores}">
+            <td th:text="${televisor.id}"></td>
+            <td th:text="${televisor.marca}"></td>
+            <td th:text="${televisor.modelo}"></td>
+            <td th:text="${televisor.precio}"></td>
+            <td th:text="${televisor.cantidad}"></td>
+            <td>
+                <a th:href="@{/televisores/editar/{id}(id=${televisor.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/televisores/eliminar/{id}(id=${televisor.id})}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
